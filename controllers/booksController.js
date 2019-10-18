@@ -3,10 +3,10 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
     path: './data/bookstest.csv',
     header: [
-        { id: 'title', title: 'TITLE' },
-        { id: 'author', title: 'AUTHOR' },
-        { id: 'dateRead', title: 'DATE_READ' },
-        { id: 'rating', title: 'RATING' }
+        { id: 'TITLE', title: 'TITLE' },
+        { id: 'AUTHOR', title: 'AUTHOR' },
+        { id: 'DATE_READ', title: 'DATE_READ' },
+        { id: 'RATING', title: 'RATING' }
     ]
 });
 const fs = require('fs');
@@ -29,6 +29,12 @@ exports.books_get_all = async (req, res, next) => {
 }
 
 exports.store_all_books = async (req, res, next) => {
-
+    const data = req.body;
+    //console.log(data);
+    csvWriter
+        .writeRecords(data)
+        .then(() => {
+            res.json({ result: 'success'});
+        })
 }
 
